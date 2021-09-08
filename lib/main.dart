@@ -26,6 +26,7 @@ class GamePage extends StatefulWidget{
   @override
 class  _GamePageState extends State<GamePage>{
   bool _alertIsVisible = false;
+  bool _whoIsClicked = false;
 
     @override
   Widget build(BuildContext context){
@@ -44,6 +45,15 @@ class  _GamePageState extends State<GamePage>{
                   this._alertIsVisible = true;
                   _showAlert(context);
                   print("Button pressed");
+                },
+              ),
+
+              FlatButton(
+                child: Text('Wooow', style: TextStyle(color: Colors.pink)),
+                onPressed: () {
+                  this._whoIsClicked = false;
+                  _showWhoIsClicked(context);
+                  print("Button is clicked");
                 },
               )
             ],
@@ -74,5 +84,27 @@ class  _GamePageState extends State<GamePage>{
 
       },
       );
+  }
+  void _showWhoIsClicked(BuildContext context){
+    Widget okButton = FlatButton(
+        child: Text("Exit"),
+        onPressed: (){
+          Navigator.of(context).pop();
+          this._whoIsClicked = false;
+        });
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text("Whoo are you"),
+          content: Text("Get out"),
+          actions: <Widget>[
+            okButton,
+          ],
+          elevation: 5,
+        );
+
+      },
+    );
   }
 }
